@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Favorite Music Video</title>
+
+    <!-- STEP 2: CSS Customization -->
+    <style>
+        /* Customizing background color, font family, and text alignment */
+        body {
+            background-color: #121212;
+            color: #ffffff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 40px 20px;
+        }
+
+        h1 {
+            color: #1db954;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        p {
+            color: #b3b3b3;
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+        }
+
+        /* Styling the container around the YouTube video */
+        .video-container {
+            margin: 0 auto 40px auto;
+            max-width: 560px;
+            border: 4px solid #1db954;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(29, 185, 84, 0.3);
+        }
+
+        /* Styling the track and box for the JavaScript Animation */
+        #animation-track {
+            width: 400px;
+            height: 50px;
+            background-color: #282828;
+            margin: 20px auto;
+            position: relative;
+            border-radius: 25px;
+            overflow: hidden;
+            border: 2px solid #444;
+        }
+
+        #moving-bar {
+            width: 50px;
+            height: 50px;
+            background-color: #1db954;
+            position: absolute;
+            left: 0px;
+            border-radius: 50%;
+        }
+
+        button {
+            background-color: #1db954;
+            color: #121212;
+            border: none;
+            padding: 12px 24px;
+            font-size: 1rem;
+            font-weight: bold;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        button:hover {
+            background-color: #1ed760;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Page Header -->
+    <h1>My Favorite Song</h1>
+    <p>Watch the video below and click the button to start the JavaScript animation!</p>
+
+    <!-- STEP 1: Embedded YouTube Music Video -->
+    <div class="video-container">
+        <iframe width="560" height="315" 
+                src="https://www.youtube.com/embed/dQw4w9WgXcQ" 
+                title="YouTube video player" 
+                frameborder="0" 
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                allowfullscreen>
+        </iframe>
+    </div>
+
+    <!-- STEP 3: JavaScript Animation Elements -->
+    <div>
+        <button onclick="startAnimation()">Animate Visualizer</button>
+        <div id="animation-track">
+            <div id="moving-bar"></div>
+        </div>
+    </div>
+
+    <!-- JavaScript Logic (Based on W3Schools "How To JS Animate") -->
+    <script>
+        let animationInterval = null;
+
+        function startAnimation() {
+            const elem = document.getElementById("moving-bar");
+            let position = 0;
+            let direction = 1; // 1 means moving right, -1 means moving left
+
+            // Clear any existing animation so clicking twice doesn't speed it up
+            clearInterval(animationInterval);
+
+            // Run the frame function every 5 milliseconds
+            animationInterval = setInterval(frame, 5);
+
+            function frame() {
+                // Track width is 400px, circle width is 50px -> max left position is 350px
+                if (position >= 350) {
+                    direction = -1; // Reverse direction to left
+                } else if (position <= 0) {
+                    direction = 1;  // Reverse direction to right
+                }
+
+                position += direction * 2;
+                elem.style.left = position + "px";
+            }
+        }
+    </script>
+
+</body>
+</html>
